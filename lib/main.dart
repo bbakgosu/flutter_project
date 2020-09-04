@@ -2,106 +2,112 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "chanju's reveiw app making",
-      theme: ThemeData(primarySwatch: Colors.purple),
-      home: MyHomePage2(),
-      
+      debugShowCheckedModeBanner: false,
+      title: 'practice to snackbar',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: MyHomePage3(),
     );
   }
 }
 
-class MyHomePage2 extends StatelessWidget {
+class MyHomePage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      body: Builder(builder: (BuildContext ctx) {
+        return Center(
+          child: FlatButton(
+            child: Text(
+              'show me',
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.red,
+            onPressed: () {
+              Scaffold.of(ctx).showSnackBar(SnackBar(
+                content: Text('Hello there.'),
+              ));
+            },
+          ),
+        );
+      }),
       appBar: AppBar(
-        title: Text('review app making'),
-        elevation: 0.0,
+        title: Text(
+          'practice snackbar',
+        ),
         centerTitle: true,
-        ),
-      body: Padding(padding: EdgeInsets.fromLTRB(30.0, 40.0, 0.0, 0.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: CircleAvatar(backgroundImage: AssetImage('assets/jimmy_page.gif'),
-            radius: 70.0,),
-          ),
-        Divider(
-          color: Colors.grey,
-          endIndent: 30.0,
-          thickness: 0.5,
-          height: 60.0,
-        ),
-        Text(
-          'NAME',
-          style: TextStyle(
-          color: Colors.white,
-          letterSpacing: 2.0,
-        ),
-        ),
-        SizedBox(
-          height: 15.0,
-        ),
-        Text(
-          'Jimmy Page',
-          style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 30.0,
-          letterSpacing: 2.0,
-        ),
-        ),
-        SizedBox(
-          height: 30.0,
-        ),
-        Row(
-          children: [
-            Icon(Icons.check_circle_outline),
-            Text("Stairway to heaven",
-            style: TextStyle(
-              letterSpacing: 1.0,
-            ),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Icon(Icons.check_circle_outline),
-            Text("Misty hop mountain",
-            style: TextStyle(
-              letterSpacing: 1.0,
-            ),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Icon(Icons.check_circle_outline),
-            Text("blah blah",
-            style: TextStyle(
-              letterSpacing: 1.0,
-            ),
-            )
-          ],
-        ),
-        Center(
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/jimmy_page.jpg'),
-            radius: 60.0,
-          ),
-        )
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              print('search button clicked');
+            },
+          )
         ],
-      
-      
       ),
-
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              accountEmail: Text('chanju1998@naver.com'),
+              accountName: Text('chanju'),
+              onDetailsPressed: () {
+                print('detail clicked');
+              },
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/jimmy_page.jpg'),
+              ),
+              otherAccountsPictures: [
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/jimmy_page.jpg'),
+                ),
+              ],
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.home,
+                color: Colors.grey[850],
+              ),
+              title: Text('Home'),
+              onTap: () {
+                print('home button is clicked');
+              },
+              trailing: Icon(Icons.add),
+            ),
+            Builder(builder: (BuildContext ctx1) {
+              return ListTile(
+                leading: Icon(
+                  Icons.settings,
+                  color: Colors.grey[850],
+                ),
+                title: Text('settings'),
+                onTap: () {
+                  Scaffold.of(ctx1).showSnackBar(SnackBar(
+                    content: Text("setting snack clicked"),
+                  ));
+                },
+                trailing: Icon(Icons.add),
+              );
+            }),
+            ListTile(
+              leading: Icon(
+                Icons.home,
+                color: Colors.grey[850],
+              ),
+              title: Text('Q&A'),
+              onLongPress: () {
+                print('Question button is clicked');
+              },
+              trailing: Icon(Icons.add),
+            ),
+          ],
+        ),
       ),
     );
   }
